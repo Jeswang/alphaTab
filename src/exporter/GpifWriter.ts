@@ -1000,7 +1000,10 @@ export class GpifWriter {
         trackNode.addElement('PlayingStyle').innerText = GeneralMidi.isGuitar(track.playbackInfo.program)
             ? 'StringedPick'
             : 'Default';
-        trackNode.addElement('UseOneChannelPerString');
+
+        if (track.staves.length > 1 && track.staves[0].isStringed()) {
+            trackNode.addElement('UseOneChannelPerString');    
+        }
 
         trackNode.addElement('IconId').innerText = GpifWriter.getIconId(track.playbackInfo).toString();
 
